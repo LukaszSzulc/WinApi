@@ -9,13 +9,6 @@
 class Window
 {
 	
-private:
-	static HWND windowHandler;
-	int width;
-	int height;
-	int nCmdShow;
-	static HINSTANCE mainInstance;
-	std::vector<Control*> controls;
 public:
 	Window(int width, int height,HINSTANCE hinstance,int nCmdShow)
 	{
@@ -28,12 +21,19 @@ public:
 
 	static HWND GetWindowHandler();
 
+	void Initialize();
+
+private:
+	static HWND windowHandler;
+	int width;
+	int height;
+	int nCmdShow;
+	static HINSTANCE mainInstance;
+	std::vector<Control*> controls;
 	void CreateApplicationWindow();
-
-	void HandleMessages();
-
-	void AddControl(Control* control);
-
 	void InitializeControls();
+	void AddControl(Control* control);
+	void HandleMessages();
+	void CreateControls();
 
 };

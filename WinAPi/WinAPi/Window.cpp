@@ -1,4 +1,9 @@
 #include "Window.h"
+#include "Label.h"
+#include "Button.h"
+#include "TextBox.h"
+#include "PasswordBox.h"
+#include "ListView.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -63,8 +68,6 @@ void Window::CreateApplicationWindow()
 	UpdateWindow(this->windowHandler);
 }
 
-
-
 HWND Window::GetWindowHandler()
 {
 	return windowHandler;
@@ -98,3 +101,53 @@ void Window::InitializeControls()
 		(*it)->Create();
 	}
 }
+
+void Window::CreateControls()
+{
+	Label *dockerUrlLabel = new Label("", 0, 0, 150, 20, "Docker Url");
+	Label *loginLabel = new Label("", 40, 0, 150, 20, "Login");
+	Label *passwordLabel = new Label("", 80, 0, 150, 20, "Password");
+
+	Button *loginButton = new Button("LoginButton", 140, 0, 150, 50, "Login");
+	Button *startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
+	Button *stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
+	Button *createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
+	Button *deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
+
+	TextBox *dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
+	TextBox *login = new TextBox("Login", 60, 0, 150, 20);
+	PasswordBox *passwordBox = new PasswordBox("Password", 100, 0, 150, 20);
+
+	ListView *listView = new ListView("ListView", 0, 150, 550, 350);
+	ListViewItem *containerId = new ListViewItem(0, "ContainerId", 150);
+	ListViewItem *name = new ListViewItem(1, "Name", 100);
+	ListViewItem *image = new ListViewItem(2, "Image", 100);
+	ListViewItem *status = new ListViewItem(3, "Status", 100);
+	ListViewItem *created = new ListViewItem(4, "Created", 100);
+	listView->AddItem(containerId);
+	listView->AddItem(name);
+	listView->AddItem(image);
+	listView->AddItem(status);
+	listView->AddItem(created);
+	this->AddControl(listView);
+	this->AddControl(loginButton);
+	this->AddControl(dockerUrl);
+	this->AddControl(startContainerButton);
+	this->AddControl(createContainerButton);
+	this->AddControl(deleteContainerButton);
+	this->AddControl(stopContainerButton);
+	this->AddControl(passwordBox);
+	this->AddControl(dockerUrlLabel);
+	this->AddControl(loginLabel);
+	this->AddControl(passwordLabel);
+	this->AddControl(login);
+
+}
+void Window::Initialize()
+{
+	CreateApplicationWindow();
+	CreateControls();
+	InitializeControls();
+	HandleMessages();
+}
+

@@ -144,13 +144,20 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="ListView.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PasswordBox.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Control.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="ListView.h" />
+    <ClInclude Include="ListViewItem.h" />
+    <ClInclude Include="PasswordBox.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
