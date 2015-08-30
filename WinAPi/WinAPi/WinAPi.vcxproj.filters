@@ -62,6 +62,9 @@
     <ClInclude Include="ListView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ListViewColumn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ListViewItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,31 +1,45 @@
 #pragma once
-#include <string>
+
 class ListViewItem
 {
 public:
-	ListViewItem(int orderId,std::string headerText,int width)
+	ListViewItem(std::string containerId, std::string name, std::string image, std::string status, std::string created)
 	{
-		this->orderId = orderId;
-		this->width = width;
-		this->headerText = headerText;
+		this->containerId = containerId;
+		this->created = created;
+		this->name = name;
+		this->status = status;
+		this->image = image;
 	}
 
-	int GetOrderId()
+	std::string GetImage()
 	{
-		return this->orderId;
+		return this->image;
 	}
 
-	std::string GetHeaderText()
+	std::string GetContainerId()
 	{
-		return this->headerText;
+		return this->containerId;
 	}
 
-	int GetWidth()
+	std::string GetName()
 	{
-		return this->width;
+		return this->name;
+	}
+
+	std::string GetStatus()
+	{
+		return this->status;
+	}
+
+	std::string GetCreated()
+	{
+		return this->created;
 	}
 private:
-	int orderId;
-	std::string headerText;
-	int width;
+	std::string containerId;
+	std::string name;
+	std::string image;
+	std::string status;
+	std::string created;
 };

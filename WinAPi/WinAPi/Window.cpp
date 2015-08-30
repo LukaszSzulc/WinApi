@@ -5,7 +5,45 @@
 #include "PasswordBox.h"
 #include "ListView.h"
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+HINSTANCE Window::mainInstance = NULL;
+
+HWND Window::windowHandler = NULL;
+
+std::map<std::string, Control*> Window::controls;
+
+std::map<int, std::string> Window::mapHexToString;
+
+int Window::controlCount = 0x0;
+
+void Window::HandleButtonClick(WORD word)
+{
+	std::string controlId = GetHexIdByStringName(word);
+
+	if (controlId == "LoginButton")
+	{
+		MessageBox(NULL, _T("Login Button"), _T("Button Clicked"), MB_ICONINFORMATION);
+	}
+	if (controlId == "StartContainer")
+	{
+		MessageBox(NULL, _T("Start Button"), _T("Button Clicked"), MB_ICONINFORMATION);
+	}
+	if (controlId == "StopContainer")
+	{
+		MessageBox(NULL, _T("Stop Button"), _T("Button Clicked"), MB_ICONINFORMATION);
+	}
+	if (controlId == "CreateContainer")
+	{
+		MessageBox(NULL, _T("Create Button"), _T("Button Clicked"), MB_ICONINFORMATION);
+	}
+	if (controlId == "DeleteContainer")
+	{
+		MessageBox(NULL, _T("Delete Button"), _T("Button Clicked"), MB_ICONINFORMATION);
+	}
+	
+}
+
+
+LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT ps;
 	HDC hdc;
@@ -13,6 +51,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	switch (message)
 	{
+		case WM_COMMAND:
+			HandleButtonClick(LOWORD(wParam));
+			break;
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
@@ -23,17 +64,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-HINSTANCE Window::mainInstance = NULL;
-
-HWND Window::windowHandler = NULL;
-
 void Window::CreateApplicationWindow()
 {
 	WNDCLASSEX wcex;
 	auto className = _T("DockerClient");
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc = WndProc;
+	wcex.lpfnWndProc = this->WndProc;
 	wcex.cbClsExtra = 0;
 	wcex.cbWndExtra = 0;
 	wcex.hInstance = mainInstance;
@@ -90,15 +127,16 @@ void Window::HandleMessages()
 
 void Window::AddControl(Control* control)
 {
-	this->controls.push_back(control);
+	this->AddMapStringToHex(controlCount++, control->GetControlId());
+	this->controls[control->GetControlId()] = control;;
 }
 
 void Window::InitializeControls()
 {
-	std::vector<Control*>::iterator it;
+	std::map<std::string,Control*>::iterator it;
 	for (it = this->controls.begin(); it != this->controls.end(); ++it)
 	{
-		(*it)->Create();
+		it->second->Create();
 	}
 }
 
@@ -119,16 +157,18 @@ void Window::CreateControls()
 	PasswordBox *passwordBox = new PasswordBox("Password", 100, 0, 150, 20);
 
 	ListView *listView = new ListView("ListView", 0, 150, 550, 350);
-	ListViewItem *containerId = new ListViewItem(0, "ContainerId", 150);
-	ListViewItem *name = new ListViewItem(1, "Name", 100);
-	ListViewItem *image = new ListViewItem(2, "Image", 100);
-	ListViewItem *status = new ListViewItem(3, "Status", 100);
-	ListViewItem *created = new ListViewItem(4, "Created", 100);
-	listView->AddItem(containerId);
-	listView->AddItem(name);
-	listView->AddItem(image);
-	listView->AddItem(status);
-	listView->AddItem(created);
+	ListViewColumn *containerId = new ListViewColumn(0, "ContainerId", 150);
+	ListViewColumn *name = new ListViewColumn(1, "Name", 100);
+	ListViewColumn *image = new ListViewColumn(2, "Image", 100);
+	ListViewColumn *status = new ListViewColumn(3, "Status", 100);
+	ListViewColumn *created = new ListViewColumn(4, "Created", 100);
+	ListViewItem *item = new ListViewItem("1234", "ubuntu", "ubuntu/lastes", "running", "wczoraj");
+	listView->AddColumn(containerId);
+	listView->AddColumn(name);
+	listView->AddColumn(image);
+	listView->AddColumn(status);
+	listView->AddColumn(created);
+	listView->AddItem(item);
 	this->AddControl(listView);
 	this->AddControl(loginButton);
 	this->AddControl(dockerUrl);
@@ -143,6 +183,7 @@ void Window::CreateControls()
 	this->AddControl(login);
 
 }
+
 void Window::Initialize()
 {
 	CreateApplicationWindow();
@@ -151,3 +192,30 @@ void Window::Initialize()
 	HandleMessages();
 }
 
+Control* Window::GetControl(std::string controlId)
+{
+	return controls[controlId];
+}
+
+void Window::AddMapStringToHex(int hexId, std::string stringId)
+{
+	mapHexToString[hexId] = stringId;
+}
+
+std::string Window::GetHexIdByStringName(int hexId)
+{
+	return mapHexToString[hexId];
+}
+
+int Window::GetHexControlId(std::string controlId)
+{
+	std::map<int, std::string>::iterator it;
+	for (it = mapHexToString.begin(); it != mapHexToString.end();++it)
+	{
+		if(it->second == controlId)
+		{
+			return it->first;
+		}
+	}
+	return -1;
+}

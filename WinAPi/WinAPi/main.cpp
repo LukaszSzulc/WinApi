@@ -10,5 +10,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 {
 	Window window(700, 450, hInstance, nCmdShow);
 	window.Initialize();
+
 	return 0;
 }

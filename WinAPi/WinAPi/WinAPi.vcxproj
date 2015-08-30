@@ -156,6 +156,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="ListView.h" />
+    <ClInclude Include="ListViewColumn.h" />
     <ClInclude Include="ListViewItem.h" />
     <ClInclude Include="PasswordBox.h" />
     <ClInclude Include="TextBox.h" />

@@ -1,16 +1,29 @@
 #pragma once
 #include "Windows.h"
 #include <string>
+#include <map>
 
 class Control
 {
 protected:
+
+
 	std::string controlId;
+
 	int positionLeft;
+
 	int positionTop;
+
 	int width;
+
 	int height;
+
 	HWND controlHandler;
+
+	void SetSystemStyle();
+
+	std::wstring ConvertToWstring(std::string itemToConvert);
+
 public:
 	Control(std::string controlId,int positionTop, int positionLeft, int width, int height)
 	{
@@ -21,7 +34,9 @@ public:
 		this->positionLeft = positionLeft;
 	}
 
-	void virtual Create() = 0;
+	std::string GetControlId();
 
-	void SetSystemStyle();
+	HWND GetControlHandler();
+
+	void virtual Create() = 0;
 };
