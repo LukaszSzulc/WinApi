@@ -21,7 +21,11 @@ void Window::HandleButtonClick(WORD word)
 
 	if (controlId == "LoginButton")
 	{
-		MessageBox(NULL, _T("Login Button"), _T("Button Clicked"), MB_ICONINFORMATION);
+		wchar_t *buffer = new wchar_t[256];
+		ListView_GetItemText(Window::GetControl("ListView")->GetControlHandler(), 0, 0, buffer, 256);
+		std::wstring str(buffer);
+		
+		MessageBox(NULL,str.c_str(), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "StartContainer")
 	{
