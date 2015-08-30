@@ -21,6 +21,12 @@ public:
 		this->mainInstance = hinstance;
 		this->nCmdShow = nCmdShow;
 	}
+
+	~Window()
+	{
+		delete this->mainInstance;
+		delete this->windowHandler;
+	}
 	static HINSTANCE GetMainInstance();
 
 	static HWND GetWindowHandler();
@@ -46,7 +52,6 @@ private:
 	int nCmdShow;
 
 	static std::string GetHexIdByStringName(int hexId);
-	static std::string GetControlId();
 	void CreateApplicationWindow();
 	void InitializeControls();
 	void AddControl(Control* control);

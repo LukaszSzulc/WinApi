@@ -34,6 +34,11 @@ public:
 		this->positionLeft = positionLeft;
 	}
 
+	~Control()
+	{
+		delete this->controlHandler;
+	}
+
 	std::string GetControlId();
 
 	HWND GetControlHandler();
