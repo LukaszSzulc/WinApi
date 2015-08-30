@@ -4,7 +4,7 @@
 
 class Control
 {
-private:
+protected:
 	std::string controlId;
 	int positionLeft;
 	int positionTop;
@@ -22,4 +22,6 @@ public:
 	}
 
 	void virtual Create() = 0;
+
+	void SetSystemStyle();
 };

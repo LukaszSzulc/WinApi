@@ -3,18 +3,19 @@
 #include "Control.h"
 #include <tchar.h>
 #include <vector>
+#include <iostream>
 
 
 class Window
 {
 	
 private:
-	HWND windowHandler;
+	static HWND windowHandler;
 	int width;
 	int height;
 	int nCmdShow;
-	HINSTANCE mainInstance;
-	std::vector<Control> controls;
+	static HINSTANCE mainInstance;
+	std::vector<Control*> controls;
 public:
 	Window(int width, int height,HINSTANCE hinstance,int nCmdShow)
 	{
@@ -23,13 +24,16 @@ public:
 		this->mainInstance = hinstance;
 		this->nCmdShow = nCmdShow;
 	}
-	HINSTANCE GetMainInstance();
+	static HINSTANCE GetMainInstance();
 
-	HWND GetWindowHandler();
+	static HWND GetWindowHandler();
 
 	void CreateApplicationWindow();
 
 	void HandleMessages();
 
-	void AddControl(const Control &control);
+	void AddControl(Control* control);
+
+	void InitializeControls();
+
 };

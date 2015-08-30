@@ -3,6 +3,8 @@
 #include <string>
 #include <commctrl.h>
 #include "Window.h"
+#include "Button.h"
+#include "TextBox.h"
 // Global variables
 
 static TCHAR szWindowClass[] = _T("win32app");
@@ -139,10 +141,23 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
+	Button *loginButton = new Button("LoginButton", 140, 0, 150, 50, "Login");
+	Button *startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
+	Button *stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
+	Button *createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
+	Button *deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
+	TextBox *loginTextBox = new TextBox("Login", 20, 0, 150, 20);
 	Window win(700, 450,hInstance,nCmdShow);
-
 	win.CreateApplicationWindow();
+	win.AddControl(loginButton);
+	win.AddControl(loginTextBox);
+	win.AddControl(startContainerButton);
+	win.AddControl(createContainerButton);
+	win.AddControl(deleteContainerButton);
+	win.AddControl(stopContainerButton);
+	win.InitializeControls();
 	win.HandleMessages();
+
 	//mainWindow = CreateApplicationWindow(700,450);
 	//CreateLabel(0, 0, 150, 20, "Docker Url");
 	//CreateTextBox(0, 20, 150, 20);

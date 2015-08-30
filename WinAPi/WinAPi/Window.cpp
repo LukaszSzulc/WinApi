@@ -18,6 +18,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+HINSTANCE Window::mainInstance = NULL;
+
+HWND Window::windowHandler = NULL;
+
 void Window::CreateApplicationWindow()
 {
 	WNDCLASSEX wcex;
@@ -59,14 +63,16 @@ void Window::CreateApplicationWindow()
 	UpdateWindow(this->windowHandler);
 }
 
+
+
 HWND Window::GetWindowHandler()
 {
-	return this->windowHandler;
+	return windowHandler;
 }
 
 HINSTANCE Window::GetMainInstance()
 {
-	return this->mainInstance;
+	return mainInstance;
 }
 
 void Window::HandleMessages()
@@ -79,7 +85,16 @@ void Window::HandleMessages()
 	}
 }
 
-void Window::AddControl(const Control& control)
+void Window::AddControl(Control* control)
 {
 	this->controls.push_back(control);
+}
+
+void Window::InitializeControls()
+{
+	std::vector<Control*>::iterator it;
+	for (it = this->controls.begin(); it != this->controls.end(); ++it)
+	{
+		(*it)->Create();
+	}
 }
