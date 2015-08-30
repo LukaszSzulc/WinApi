@@ -2,10 +2,13 @@
 #include <windows.h>
 #include "Control.h"
 #include <tchar.h>
-#include <vector>
-#include <iostream>
 #include <map>
-
+#include "Label.h"
+#include "Button.h"
+#include "TextBox.h"
+#include "PasswordBox.h"
+#include "ListView.h"
+#include "Events.h"
 
 class Window
 {
@@ -22,9 +25,13 @@ public:
 
 	static HWND GetWindowHandler();
 
-	void Initialize();
 
 	static int GetHexControlId(std::string controlId);
+	
+	template<typename ControlType>
+	static ControlType* GetControl(std::string controlId);
+
+	void Initialize();
 
 private:
 	static HINSTANCE mainInstance;
@@ -32,7 +39,6 @@ private:
 	static void HandleButtonClick(WORD l_param);
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	static HWND windowHandler;
-	static Control* GetControl(std::string controlId);
 	static std::map<std::string, Control*> controls;
 	static std::map<int, std::string> mapHexToString;
 	int width;
@@ -51,3 +57,11 @@ private:
 
 
 };
+
+template <typename ControlType>
+ControlType* Window::GetControl(std::string controlId)
+{
+	ControlType* control = dynamic_cast<ControlType*>(controls[controlId]);
+	return control;
+	
+}

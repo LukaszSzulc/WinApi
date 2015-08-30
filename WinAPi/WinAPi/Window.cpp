@@ -1,9 +1,4 @@
 #include "Window.h"
-#include "Label.h"
-#include "Button.h"
-#include "TextBox.h"
-#include "PasswordBox.h"
-#include "ListView.h"
 
 HINSTANCE Window::mainInstance = NULL;
 
@@ -21,29 +16,28 @@ void Window::HandleButtonClick(WORD word)
 
 	if (controlId == "LoginButton")
 	{
-		wchar_t *buffer = new wchar_t[256];
-		ListView_GetItemText(Window::GetControl("ListView")->GetControlHandler(), 0, 0, buffer, 256);
-		std::wstring str(buffer);
-		
-		MessageBox(NULL,str.c_str(), _T("Button Clicked"), MB_ICONINFORMATION);
+		Events::HandleLoginEvent();
 	}
 	if (controlId == "StartContainer")
 	{
+		Events::HandleStartContainerEvent();
 		MessageBox(NULL, _T("Start Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "StopContainer")
 	{
+		Events::HandleStopContainerEvent();
 		MessageBox(NULL, _T("Stop Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "CreateContainer")
 	{
+		Events::HandleCreateNewContainerEvent();
 		MessageBox(NULL, _T("Create Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "DeleteContainer")
 	{
+		Events::HandleDeleteContainerEvent();
 		MessageBox(NULL, _T("Delete Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
-	
 }
 
 
@@ -196,10 +190,6 @@ void Window::Initialize()
 	HandleMessages();
 }
 
-Control* Window::GetControl(std::string controlId)
-{
-	return controls[controlId];
-}
 
 void Window::AddMapStringToHex(int hexId, std::string stringId)
 {

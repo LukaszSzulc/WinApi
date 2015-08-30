@@ -17,7 +17,7 @@ public:
 	void AddItem(ListViewItem *item);
 
 	void Create() override;
-
+	std::string GetContainerId();
 private:
 	std::vector<ListViewColumn*> columns;
 	std::vector<ListViewItem*> items;

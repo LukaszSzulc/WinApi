@@ -43,4 +43,25 @@ void ListView::Create()
 	ListView_SetItemText(this->controlHandler, 0, 3, _T("Running"));
 	ListView_SetItemText(this->controlHandler, 0, 4, _T("Epoch datetame"));
 
+
+	lvi.mask = LVIF_TEXT;
+
+	lvi.pszText = _T("987654321");
+	lvi.iItem = 1;
+	lvi.iSubItem = 0;
+	ListView_InsertItem(this->controlHandler, &lvi);	
+	ListView_SetItemText(this->controlHandler, 1, 1, _T("Random name by docker"));
+	ListView_SetItemText(this->controlHandler, 1, 2, _T("ubuntu/lastest"));
+	ListView_SetItemText(this->controlHandler, 1, 3, _T("Running"));
+	ListView_SetItemText(this->controlHandler, 1, 4, _T("Epoch datetame"));
+
+}
+
+std::string ListView::GetContainerId()
+{
+	wchar_t *buffer = new wchar_t[1024];
+	int i = SendMessage(this->controlHandler, LVM_GETNEXTITEM, (WPARAM)-1, (LPARAM)LVNI_SELECTED);
+	ListView_GetItemText(this->controlHandler, i, 0, buffer, 1024);
+	std::wstring str(buffer);
+	return std::string(str.begin(), str.end());
 }
