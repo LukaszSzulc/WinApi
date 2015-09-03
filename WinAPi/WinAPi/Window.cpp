@@ -1,5 +1,7 @@
 #include "Window.h"
 
+using namespace View;
+
 HINSTANCE Window::mainInstance = NULL;
 
 HWND Window::windowHandler = NULL;
@@ -49,14 +51,14 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 
 	switch (message)
 	{
-		case WM_COMMAND:
-			HandleButtonClick(LOWORD(wParam));
-			break;
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
+	case WM_COMMAND:
+		HandleButtonClick(LOWORD(wParam));
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 
 	return 0;
@@ -82,9 +84,9 @@ void Window::CreateApplicationWindow()
 	if (!RegisterClassEx(&wcex))
 	{
 		MessageBox(NULL,
-			_T("Call to RegisterClassEx failed!"),
-			_T("Win32 Guided Tour"),
-			NULL);
+		               _T("Call to RegisterClassEx failed!"),
+		               _T("Win32 Guided Tour"),
+		               NULL);
 	}
 
 	this->windowHandler = CreateWindow(
@@ -97,9 +99,9 @@ void Window::CreateApplicationWindow()
 		NULL,
 		mainInstance,
 		NULL
-		);
+	);
 	ShowWindow(this->windowHandler,
-		this->nCmdShow);
+	           this->nCmdShow);
 	UpdateWindow(this->windowHandler);
 }
 
@@ -131,7 +133,7 @@ void Window::AddControl(Control* control)
 
 void Window::InitializeControls()
 {
-	std::map<std::string,Control*>::iterator it;
+	std::map<std::string, Control*>::iterator it;
 	for (it = this->controls.begin(); it != this->controls.end(); ++it)
 	{
 		it->second->Create();
@@ -140,27 +142,27 @@ void Window::InitializeControls()
 
 void Window::CreateControls()
 {
-	Label *dockerUrlLabel = new Label("", 0, 0, 150, 20, "Docker Url");
-	Label *loginLabel = new Label("", 40, 0, 150, 20, "Login");
-	Label *passwordLabel = new Label("", 80, 0, 150, 20, "Password");
+	Label* dockerUrlLabel = new Label("", 0, 0, 150, 20, "Docker Url");
+	Label* loginLabel = new Label("", 40, 0, 150, 20, "Login");
+	Label* passwordLabel = new Label("", 80, 0, 150, 20, "Password");
 
-	Button *loginButton = new Button("LoginButton", 140, 0, 150, 50, "Login");
-	Button *startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
-	Button *stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
-	Button *createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
-	Button *deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
+	Button* loginButton = new Button("LoginButton", 140, 0, 150, 50, "Login");
+	Button* startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
+	Button* stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
+	Button* createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
+	Button* deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
 
-	TextBox *dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
-	TextBox *login = new TextBox("Login", 60, 0, 150, 20);
-	PasswordBox *passwordBox = new PasswordBox("Password", 100, 0, 150, 20);
+	TextBox* dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
+	TextBox* login = new TextBox("Login", 60, 0, 150, 20);
+	PasswordBox* passwordBox = new PasswordBox("Password", 100, 0, 150, 20);
 
-	ListView *listView = new ListView("ListView", 0, 150, 550, 350);
-	ListViewColumn *containerId = new ListViewColumn(0, "ContainerId", 150);
-	ListViewColumn *name = new ListViewColumn(1, "Name", 100);
-	ListViewColumn *image = new ListViewColumn(2, "Image", 100);
-	ListViewColumn *status = new ListViewColumn(3, "Status", 100);
-	ListViewColumn *created = new ListViewColumn(4, "Created", 100);
-	ListViewItem *item = new ListViewItem("1234", "ubuntu", "ubuntu/lastes", "running", "wczoraj");
+	ListView* listView = new ListView("ListView", 0, 150, 550, 350);
+	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 150);
+	ListViewColumn* name = new ListViewColumn(1, "Name", 100);
+	ListViewColumn* image = new ListViewColumn(2, "Image", 100);
+	ListViewColumn* status = new ListViewColumn(3, "Status", 100);
+	ListViewColumn* created = new ListViewColumn(4, "Created", 100);
+	ListViewItem* item = new ListViewItem("1234", "ubuntu", "ubuntu/lastes", "running", "wczoraj");
 	listView->AddColumn(containerId);
 	listView->AddColumn(name);
 	listView->AddColumn(image);
@@ -179,7 +181,6 @@ void Window::CreateControls()
 	this->AddControl(loginLabel);
 	this->AddControl(passwordLabel);
 	this->AddControl(login);
-
 }
 
 void Window::Initialize()
@@ -204,9 +205,9 @@ std::string Window::GetHexIdByStringName(int hexId)
 int Window::GetHexControlId(std::string controlId)
 {
 	std::map<int, std::string>::iterator it;
-	for (it = mapHexToString.begin(); it != mapHexToString.end();++it)
+	for (it = mapHexToString.begin(); it != mapHexToString.end(); ++it)
 	{
-		if(it->second == controlId)
+		if (it->second == controlId)
 		{
 			return it->first;
 		}

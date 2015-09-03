@@ -3,13 +3,15 @@
 #include "Window.h"
 #include "TextBox.h"
 #include "PasswordBox.h"
-
-class Events
+namespace View
 {
-public:
-	static void HandleLoginEvent();
-	static void HandleStartContainerEvent();
-	static void HandleStopContainerEvent();
-	static void HandleCreateNewContainerEvent();
-	static void HandleDeleteContainerEvent();
-};
+	class Events
+	{
+	public:
+		static void HandleLoginEvent();
+		static void HandleStartContainerEvent();
+		static void HandleStopContainerEvent();
+		static void HandleCreateNewContainerEvent();
+		static void HandleDeleteContainerEvent();
+	};
+}

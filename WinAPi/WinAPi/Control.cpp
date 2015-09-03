@@ -1,4 +1,5 @@
 #include "Control.h"
+using namespace View;
 
 void Control::SetSystemStyle()
 {

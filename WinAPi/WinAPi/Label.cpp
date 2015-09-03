@@ -1,6 +1,8 @@
 #include "Label.h"
 #include "Window.h"
 
+using namespace View;
+
 void Label::Create()
 {
 	std::wstring str = std::wstring(text.begin(), text.end());

@@ -2,16 +2,19 @@
 #include "Control.h"
 #include "Window.h"
 
-class Button : public Control
+namespace View
 {
-public:
-	Button(std::string controlId, int positionTop, int positionLeft, int width, int height, std::string content) :Control(controlId, positionTop, positionLeft, width, height)
+	class Button : public Control
 	{
-		this->content = content;
-	}
+	public:
+		Button(std::string controlId, int positionTop, int positionLeft, int width, int height, std::string content) :Control(controlId, positionTop, positionLeft, width, height)
+		{
+			this->content = content;
+		}
 
-	void Create() override;
+		void Create() override;
 
-private:
-	std::string content;
-};
+	private:
+		std::string content;
+	};
+}

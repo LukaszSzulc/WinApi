@@ -1,6 +1,8 @@
 #include "PasswordBox.h"
 #include "Window.h"
 
+using namespace View;
+
 void PasswordBox::Create()
 {
 	this->controlHandler = CreateWindowEx(WS_EX_CLIENTEDGE, _T("EDIT"), NULL, ES_PASSWORD | WS_CHILD | WS_VISIBLE | WS_BORDER,

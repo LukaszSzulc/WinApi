@@ -1,15 +1,17 @@
 #pragma once
 
 #include "Control.h"
-
-class PasswordBox : public Control
+namespace View
 {
-public:
-	PasswordBox(std::string controlId, int positionTop, int positionLeft, int width, int height) :Control(controlId, positionTop, positionLeft, width, height)
+	class PasswordBox : public Control
 	{
-	}
+	public:
+		PasswordBox(std::string controlId, int positionTop, int positionLeft, int width, int height) :Control(controlId, positionTop, positionLeft, width, height)
+		{
+		}
 
-	std::string GetPassword();
+		std::string GetPassword();
 
-	void Create() override;
-};
+		void Create() override;
+	};
+}

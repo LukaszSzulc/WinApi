@@ -1,4 +1,5 @@
 #include "Button.h"
+using namespace View;
 
 void Button::Create()
 {

@@ -1,45 +1,47 @@
 #pragma once
-
-class ListViewItem
+namespace View
 {
-public:
-	ListViewItem(std::string containerId, std::string name, std::string image, std::string status, std::string created)
+	class ListViewItem
 	{
-		this->containerId = containerId;
-		this->created = created;
-		this->name = name;
-		this->status = status;
-		this->image = image;
-	}
+	public:
+		ListViewItem(std::string containerId, std::string name, std::string image, std::string status, std::string created)
+		{
+			this->containerId = containerId;
+			this->created = created;
+			this->name = name;
+			this->status = status;
+			this->image = image;
+		}
 
-	std::string GetImage()
-	{
-		return this->image;
-	}
+		std::string GetImage()
+		{
+			return this->image;
+		}
 
-	std::string GetContainerId()
-	{
-		return this->containerId;
-	}
+		std::string GetContainerId()
+		{
+			return this->containerId;
+		}
 
-	std::string GetName()
-	{
-		return this->name;
-	}
+		std::string GetName()
+		{
+			return this->name;
+		}
 
-	std::string GetStatus()
-	{
-		return this->status;
-	}
+		std::string GetStatus()
+		{
+			return this->status;
+		}
 
-	std::string GetCreated()
-	{
-		return this->created;
-	}
-private:
-	std::string containerId;
-	std::string name;
-	std::string image;
-	std::string status;
-	std::string created;
-};
+		std::string GetCreated()
+		{
+			return this->created;
+		}
+	private:
+		std::string containerId;
+		std::string name;
+		std::string image;
+		std::string status;
+		std::string created;
+	};
+}

@@ -1,6 +1,7 @@
 #include "ListView.h"
 #include "Window.h"
 
+using namespace View;
 
 void ListView::AddColumn(ListViewColumn *column)
 {

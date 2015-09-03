@@ -1,5 +1,6 @@
 #include "TextBox.h"
 #include "Window.h"
+using namespace View;
 
 void TextBox::Create()
 {

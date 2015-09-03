@@ -1,15 +1,17 @@
 #pragma once
 
 #include "Control.h"
-
-class TextBox : public Control
+namespace View
 {
-public:
-	TextBox(std::string controlId, int positionTop, int positionLeft, int width, int height):Control(controlId,positionTop,positionLeft,width,height)
+	class TextBox : public Control
 	{
-	}
-	
-	std::string GetText();
-	
-	void Create() override;
-};
+	public:
+		TextBox(std::string controlId, int positionTop, int positionLeft, int width, int height) :Control(controlId, positionTop, positionLeft, width, height)
+		{
+		}
+
+		std::string GetText();
+
+		void Create() override;
+	};
+}

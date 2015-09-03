@@ -1,4 +1,5 @@
 #include "Events.h"
+using namespace View;
 
 void Events::HandleLoginEvent()
 {
