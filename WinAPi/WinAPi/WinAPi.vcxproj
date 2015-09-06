@@ -155,12 +155,15 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Control.h" />
+    <ClInclude Include="DockerGetContainerResponse.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="ListView.h" />
     <ClInclude Include="ListViewColumn.h" />
     <ClInclude Include="ListViewItem.h" />
     <ClInclude Include="PasswordBox.h" />
+    <ClInclude Include="Port.h" />
+    <ClInclude Include="ServiceDocker.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

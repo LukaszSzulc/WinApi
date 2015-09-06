@@ -26,8 +26,6 @@ namespace View
 
 		~Window()
 		{
-			delete this->mainInstance;
-			delete this->windowHandler;
 		}
 		static HINSTANCE GetMainInstance();
 

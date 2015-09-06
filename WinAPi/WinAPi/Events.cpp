@@ -22,6 +22,8 @@ void Events::HandleStartContainerEvent()
 {
 	ListView *listView = Window::GetControl<ListView>("ListView");
 	std::string containerId = listView->GetContainerId();
+	ListViewItem *item = new ListViewItem("123456789", "John Connor", "Ubuntu/lastest", "running", "123456789");
+	listView->AddItem(item);
 }
 
 void Events::HandleDeleteContainerEvent()

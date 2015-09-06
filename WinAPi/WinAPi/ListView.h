@@ -17,10 +17,12 @@ namespace View
 
 		void AddItem(ListViewItem *item);
 
+		void Refresh();
 		void Create() override;
 		std::string GetContainerId();
 	private:
 		std::vector<ListViewColumn*> columns;
 		std::vector<ListViewItem*> items;
+		void Clear();
 	};
 }
