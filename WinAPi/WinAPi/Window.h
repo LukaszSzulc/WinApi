@@ -45,6 +45,7 @@ namespace View
 		static HINSTANCE mainInstance;
 		static int controlCount;
 		static void HandleButtonClick(WORD l_param);
+		static void HandleComboBoxChangeEvent(LPARAM lParam);
 		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		static HWND windowHandler;
 		static std::map<std::string, Control*> controls;

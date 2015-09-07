@@ -15,7 +15,9 @@ void ListView::AddItem(ListViewItem *item)
 	std::wstring conteinerStatus = this->ConvertToWstring(item->GetStatus());
 	std::wstring creationDate = this->ConvertToWstring(item->GetCreated());
 	CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate);
-	this->items.push_back(item);
+	std::vector<ListViewItem*>::iterator it;
+	it = this->items.begin();
+	this->items.insert(it,item);
 }
 
 void ListView::Create()

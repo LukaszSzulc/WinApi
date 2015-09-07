@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "SelectBox.h"
 
 using namespace View;
 
@@ -40,6 +41,15 @@ void Window::HandleButtonClick(WORD word)
 	}
 }
 
+void Window::HandleComboBoxChangeEvent(LPARAM lParam)
+{
+	int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL,
+		(WPARAM)0, (LPARAM)0);
+
+	TCHAR  ListItem[256];
+	(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
+		(WPARAM)ItemIndex, (LPARAM)ListItem);
+}
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -50,8 +60,16 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 	switch (message)
 	{
 	case WM_COMMAND:
-		HandleButtonClick(LOWORD(wParam));
+		if(HIWORD(wParam) == CBN_SELCHANGE)
+		{
+			HandleComboBoxChangeEvent(lParam);
+		}
+		else
+		{
+			HandleButtonClick(LOWORD(wParam));
+		}
 		break;
+		
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -140,16 +158,19 @@ void Window::InitializeControls()
 
 void Window::CreateControls()
 {
-	Label* dockerUrlLabel = new Label("", 0, 0, 150, 20, "Docker Url");
+	Label *dockerUrlLabel = new Label("A", 0, 0, 150, 20, "Docker Url");
+	Label *selectBoxLablel = new Label("B", 100, 0, 150, 20,"Images");
+	Label *commandsLabel = new Label("C", 150, 0, 150, 20, "Command");
 
-	Button* listContainers = new Button("ListContainers", 40, 0, 150, 50, "ListContainers");
+	Button* listContainers = new Button("ListContainers", 40, 0, 150, 50, "List containers and images");
 	Button* startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
 	Button* stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
 	Button* createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
 	Button* deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
 
 	TextBox* dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
-
+	SelectBox *selectBox = new SelectBox("SelectBox", 0, 120, 120, 200);
+	TextBox *command = new TextBox("Commands", 170, 0, 150, 20);
 	ListView* listView = new ListView("ListView", 0, 150, 550, 350);
 	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 150);
 	ListViewColumn* name = new ListViewColumn(1, "Name", 100);
@@ -169,6 +190,10 @@ void Window::CreateControls()
 	this->AddControl(deleteContainerButton);
 	this->AddControl(stopContainerButton);
 	this->AddControl(dockerUrlLabel);
+	this->AddControl(selectBox);
+	this->AddControl(command);	
+	this->AddControl(selectBoxLablel);
+	this->AddControl(commandsLabel);
 }
 
 void Window::Initialize()

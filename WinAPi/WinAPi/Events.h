@@ -5,6 +5,8 @@
 #include "PasswordBox.h"
 #include "stdlib.h"
 #include "time.h"
+#include "SelectBox.h"
+
 namespace View
 {
 	class Events

@@ -11,7 +11,9 @@ void Events::HandleListContainersEvent()
 void Events::HandleStopContainerEvent()
 {
 	ListView *listView = Window::GetControl<ListView>("ListView");
-	if (listView->ItemsCount() != 0)
+	int selectedIndex = listView->GetSelectedIndex();
+
+	if (listView->ItemsCount() != 0 && selectedIndex != -1)
 	{
 		int selectedIndex = listView->GetSelectedIndex();
 		std::string containerId = listView->GetContainerId();
@@ -26,9 +28,10 @@ void Events::HandleStopContainerEvent()
 void Events::HandleStartContainerEvent()
 {
 	ListView *listView = Window::GetControl<ListView>("ListView");
-	if (listView->ItemsCount() != 0)
+	int selectedIndex = listView->GetSelectedIndex();
+
+	if (listView->ItemsCount() != 0 && selectedIndex != -1)
 	{
-		int selectedIndex = listView->GetSelectedIndex();
 		std::string containerId = listView->GetContainerId();
 		listView->UpdateItem(selectedIndex, "Running");
 	}
@@ -43,9 +46,10 @@ void Events::HandleDeleteContainerEvent()
 {
 	
 	ListView *listView = Window::GetControl<ListView>("ListView");
-	if(listView->ItemsCount() != 0)
+	int selectedIndex = listView->GetSelectedIndex();
+
+	if(listView->ItemsCount() != 0 && selectedIndex != -1)
 	{
-		int selectedIndex = listView->GetSelectedIndex();
 		std::string containerId = listView->GetContainerId();
 		listView->DeleteItem(selectedIndex);
 		listView->Refresh();
@@ -58,11 +62,10 @@ void Events::HandleDeleteContainerEvent()
 
 void Events::HandleCreateNewContainerEvent()
 {
-	Window window(700, 450, Window::GetMainInstance(), Window::nCmdShow);
-	window.Initialize();
 	srand(time(NULL));
 	int id = rand() % 100000 + 50000;
 	ListView *listView = Window::GetControl<ListView>("ListView");
+	SelectBox *selectBox = Window::GetControl<SelectBox>("SelectBox");
 	ListViewItem *item = new ListViewItem(std::to_string(id), "Bruce Wayne", "ubuntu", "Running", "123456789");
 	listView->AddItem(item);
 }

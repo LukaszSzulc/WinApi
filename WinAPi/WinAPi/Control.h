@@ -6,9 +6,8 @@ namespace View
 {
 	class Control
 	{
+
 	protected:
-
-
 		std::string controlId;
 
 		int positionLeft;
@@ -43,6 +42,7 @@ namespace View
 		}
 
 		std::string GetControlId();
+
 		HWND GetControlHandler();
 
 		void virtual Create() = 0;
