@@ -181,6 +181,8 @@ void Window::CreateControls()
 	this->AddControl(loginLabel);
 	this->AddControl(passwordLabel);
 	this->AddControl(login);
+	this->AddControl(passwordLabel);
+	this->AddControl(loginLabel);
 }
 
 void Window::Initialize()

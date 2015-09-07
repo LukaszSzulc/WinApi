@@ -14,13 +14,17 @@ namespace View
 		}
 
 		void AddColumn(ListViewColumn *column);
-
 		void AddItem(ListViewItem *item);
 
+		void Refresh();
 		void Create() override;
 		std::string GetContainerId();
+		
 	private:
 		std::vector<ListViewColumn*> columns;
 		std::vector<ListViewItem*> items;
+		void Clear();
+		void CreateNewItem(ListViewItem*& item, std::wstring containerId, std::wstring containerName, std::wstring image, std::wstring date, std::wstring status);
+
 	};
 }
