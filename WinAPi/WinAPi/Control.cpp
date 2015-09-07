@@ -23,3 +23,11 @@ std::string Control::GetControlId()
 {
 	return this->controlId;
 }
+
+void Control::SetFont()
+{
+	HFONT hFont = CreateFont(13, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, ANSI_CHARSET,
+		OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE, TEXT("Tahoma"));
+	SendMessage(this->controlHandler, WM_SETFONT, WPARAM(hFont), TRUE);
+}

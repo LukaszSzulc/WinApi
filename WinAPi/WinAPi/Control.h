@@ -25,6 +25,8 @@ namespace View
 
 		std::wstring ConvertToWstring(std::string itemToConvert);
 
+		void SetFont();
+
 	public:
 		Control(std::string controlId, int positionTop, int positionLeft, int width, int height)
 		{
@@ -41,7 +43,6 @@ namespace View
 		}
 
 		std::string GetControlId();
-
 		HWND GetControlHandler();
 
 		void virtual Create() = 0;

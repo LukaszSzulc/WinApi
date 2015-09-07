@@ -32,6 +32,7 @@ namespace View
 
 		static HWND GetWindowHandler();
 
+		static int nCmdShow;
 
 		static int GetHexControlId(std::string controlId);
 
@@ -50,7 +51,6 @@ namespace View
 		static std::map<int, std::string> mapHexToString;
 		int width;
 		int height;
-		int nCmdShow;
 
 		static std::string GetHexIdByStringName(int hexId);
 		void CreateApplicationWindow();

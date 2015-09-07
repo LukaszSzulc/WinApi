@@ -29,6 +29,8 @@ namespace View
 
 		void UpdateItem(int index, std::string status);
 
+		int ItemsCount();
+
 	private:
 		std::vector<ListViewColumn*> columns;
 		

@@ -98,6 +98,18 @@ void ListView::DeleteItem(int index)
 
 void ListView::UpdateItem(int index, std::string status)
 {
-	this->items[index]->SetStatus(status);
-	this->Refresh();
+	if(this->items[index]->GetStatus() != status)
+	{
+		this->items[index]->SetStatus(status);
+		this->Refresh();
+	}
+	else
+	{
+		MessageBox(NULL, TEXT("You must select diffrent state, becouse contaianer current state is equal to requested new state."), TEXT("Warning"), MB_OK | MB_ICONEXCLAMATION);
+	}
+}
+
+int ListView::ItemsCount()
+{
+	return this->items.size();
 }

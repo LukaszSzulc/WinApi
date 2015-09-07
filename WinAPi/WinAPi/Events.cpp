@@ -1,44 +1,65 @@
 #include "Events.h"
 using namespace View;
 
-void Events::HandleLoginEvent()
+void Events::HandleListContainersEvent()
 {
 	TextBox *url = Window::GetControl<TextBox>("DockerUrl");
-	TextBox *login = Window::GetControl<TextBox>("Login");
-	PasswordBox *password = Window::GetControl<PasswordBox>("Password");
 	
 	std::string dockerUrl = url->GetText();
-	std::string dockerLogin = login->GetText();
-	std::string dockerPassword = password->GetPassword();
 }
 
 void Events::HandleStopContainerEvent()
 {
 	ListView *listView = Window::GetControl<ListView>("ListView");
-	int selectedIndex = listView->GetSelectedIndex();
-	std::string containerId = listView->GetContainerId();
-	listView->UpdateItem(selectedIndex, "Stoped");
+	if (listView->ItemsCount() != 0)
+	{
+		int selectedIndex = listView->GetSelectedIndex();
+		std::string containerId = listView->GetContainerId();
+		listView->UpdateItem(selectedIndex, "Stoped");
+	}
+	else
+	{
+		MessageBox(NULL, TEXT("Your container list looks sad :(, becouse it does not contain any elements, add new container or list containers again."), TEXT("Error"), MB_ICONSTOP | MB_OK);
+	}
 }
 
 void Events::HandleStartContainerEvent()
 {
 	ListView *listView = Window::GetControl<ListView>("ListView");
-	int selectedIndex = listView->GetSelectedIndex();
-	std::string containerId = listView->GetContainerId();
-	listView->UpdateItem(selectedIndex, "Running");
+	if (listView->ItemsCount() != 0)
+	{
+		int selectedIndex = listView->GetSelectedIndex();
+		std::string containerId = listView->GetContainerId();
+		listView->UpdateItem(selectedIndex, "Running");
+	}
+	else
+	{
+		MessageBox(NULL, TEXT("Your container list looks sad :(, becouse does not contain any elements, add new container or list containers again."), TEXT("Error"), MB_ICONSTOP | MB_OK);
+	}
+
 }
 
 void Events::HandleDeleteContainerEvent()
 {
+	
 	ListView *listView = Window::GetControl<ListView>("ListView");
-	int selectedIndex = listView->GetSelectedIndex();
-	std::string containerId = listView->GetContainerId();
-	listView->DeleteItem(selectedIndex);
-	listView->Refresh();
+	if(listView->ItemsCount() != 0)
+	{
+		int selectedIndex = listView->GetSelectedIndex();
+		std::string containerId = listView->GetContainerId();
+		listView->DeleteItem(selectedIndex);
+		listView->Refresh();
+	}
+	else
+	{
+		MessageBox(NULL, TEXT("Your container list looks sad :(, becouse does not contain any elements, add new container or list containers again."), TEXT("Error"), MB_ICONSTOP | MB_OK);
+	}
 }
 
 void Events::HandleCreateNewContainerEvent()
 {
+	Window window(700, 450, Window::GetMainInstance(), Window::nCmdShow);
+	window.Initialize();
 	srand(time(NULL));
 	int id = rand() % 100000 + 50000;
 	ListView *listView = Window::GetControl<ListView>("ListView");

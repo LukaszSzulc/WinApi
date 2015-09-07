@@ -10,10 +10,14 @@ namespace View
 	class Events
 	{
 	public:
-		static void HandleLoginEvent();
+		static void HandleListContainersEvent();
+
 		static void HandleStartContainerEvent();
+
 		static void HandleStopContainerEvent();
+
 		static void HandleCreateNewContainerEvent();
+
 		static void HandleDeleteContainerEvent();
 	};
 }

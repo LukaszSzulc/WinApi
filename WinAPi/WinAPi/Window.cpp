@@ -6,6 +6,8 @@ HINSTANCE Window::mainInstance = NULL;
 
 HWND Window::windowHandler = NULL;
 
+int Window::nCmdShow = 0;
+
 std::map<std::string, Control*> Window::controls;
 
 std::map<int, std::string> Window::mapHexToString;
@@ -16,29 +18,25 @@ void Window::HandleButtonClick(WORD word)
 {
 	std::string controlId = GetHexIdByStringName(word);
 
-	if (controlId == "LoginButton")
+	if (controlId == "ListContainers")
 	{
-		Events::HandleLoginEvent();
+		Events::HandleListContainersEvent();
 	}
 	if (controlId == "StartContainer")
 	{
 		Events::HandleStartContainerEvent();
-		MessageBox(NULL, _T("Start Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "StopContainer")
 	{
 		Events::HandleStopContainerEvent();
-		MessageBox(NULL, _T("Stop Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "CreateContainer")
 	{
 		Events::HandleCreateNewContainerEvent();
-		MessageBox(NULL, _T("Create Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "DeleteContainer")
 	{
 		Events::HandleDeleteContainerEvent();
-		MessageBox(NULL, _T("Delete Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 }
 
@@ -143,18 +141,14 @@ void Window::InitializeControls()
 void Window::CreateControls()
 {
 	Label* dockerUrlLabel = new Label("", 0, 0, 150, 20, "Docker Url");
-	Label* loginLabel = new Label("", 40, 0, 150, 20, "Login");
-	Label* passwordLabel = new Label("", 80, 0, 150, 20, "Password");
 
-	Button* loginButton = new Button("LoginButton", 140, 0, 150, 50, "Login");
+	Button* listContainers = new Button("ListContainers", 40, 0, 150, 50, "ListContainers");
 	Button* startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
 	Button* stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
 	Button* createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
 	Button* deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
 
 	TextBox* dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
-	TextBox* login = new TextBox("Login", 60, 0, 150, 20);
-	PasswordBox* passwordBox = new PasswordBox("Password", 100, 0, 150, 20);
 
 	ListView* listView = new ListView("ListView", 0, 150, 550, 350);
 	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 150);
@@ -168,17 +162,13 @@ void Window::CreateControls()
 	listView->AddColumn(status);
 	listView->AddColumn(created);
 	this->AddControl(listView);
-	this->AddControl(loginButton);
+	this->AddControl(listContainers);
 	this->AddControl(dockerUrl);
 	this->AddControl(startContainerButton);
 	this->AddControl(createContainerButton);
 	this->AddControl(deleteContainerButton);
 	this->AddControl(stopContainerButton);
-	this->AddControl(passwordBox);
 	this->AddControl(dockerUrlLabel);
-	this->AddControl(loginLabel);
-	this->AddControl(passwordLabel);
-	this->AddControl(login);
 }
 
 void Window::Initialize()
