@@ -8,6 +8,7 @@
 
 #include "DockerImage.h"
 #include "DockerContainer.h"
+#include "DockerContainerSketch.h"
 
 
 using namespace utility;                    // Common utilities like string conversions
@@ -38,5 +39,14 @@ namespace Docker {
 
 		std::vector<Docker::Model::Image> getImages();
 		std::vector<Docker::Model::Container> getContainers();
+		void createContainer(Docker::Model::ContainerSketch containerSketch);
+		void startContainer(std::string Id);
+		void startContainer(std::wstring W_Id);
+		void stopContainer(std::string Id);
+		void stopContainer(std::wstring W_Id);
+		void restartContainer(std::string Id);
+		void restartContainer(std::wstring W_Id);
+		void killContainer(std::string Id);
+		void killContainer(std::wstring W_Id);
 	};
 }

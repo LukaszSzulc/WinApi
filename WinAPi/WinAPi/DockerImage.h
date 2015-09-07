@@ -11,7 +11,7 @@ namespace Docker {
 		public:
 			std::string Id;
 			std::string ParentId;
-			std::string RepoTags;
+			std::string Name;
 			unsigned int Created;
 			unsigned int VirtualSize;
 			

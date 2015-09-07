@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -103,7 +103,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -146,6 +146,7 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="DockerClient.cpp" />
     <ClCompile Include="DockerContainer.cpp" />
+    <ClCompile Include="DockerContainerSketch.cpp" />
     <ClCompile Include="DockerImage.cpp" />
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="DockerClient.h" />
     <ClInclude Include="DockerContainer.h" />
+    <ClInclude Include="DockerContainerSketch.h" />
     <ClInclude Include="DockerGetContainerResponse.h" />
     <ClInclude Include="DockerImage.h" />
     <ClInclude Include="DockerLabel.h" />
