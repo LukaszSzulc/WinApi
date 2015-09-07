@@ -9,6 +9,12 @@ void ListView::AddColumn(ListViewColumn *column)
 }
 void ListView::AddItem(ListViewItem *item)
 {
+	std::wstring containerId = this->ConvertToWstring(item -> GetContainerId());
+	std::wstring containerName = this->ConvertToWstring(item -> GetName());
+	std::wstring containerImage = this->ConvertToWstring(item -> GetImage());
+	std::wstring conteinerStatus = this->ConvertToWstring(item->GetStatus());
+	std::wstring creationDate = this->ConvertToWstring(item->GetCreated());
+	CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate);
 	this->items.push_back(item);
 }
 
@@ -30,32 +36,12 @@ void ListView::Create()
 		column.pszText = columnText;
 		ListView_InsertColumn(this->controlHandler, this->columns.size(), &column);
 	}
+}
 
-	LVITEM lvi;
-	lvi.mask = LVIF_TEXT;
-
-	lvi.pszText = _T("123456789");
-	lvi.iItem = 0;
-	lvi.iSubItem = 0;
-
-	ListView_InsertItem(this->controlHandler, &lvi);
-	ListView_SetItemText(this->controlHandler, 0, 1, _T("Random name by docker"));
-	ListView_SetItemText(this->controlHandler, 0, 2, _T("ubuntu/lastest"));
-	ListView_SetItemText(this->controlHandler, 0, 3, _T("Running"));
-	ListView_SetItemText(this->controlHandler, 0, 4, _T("Epoch datetame"));
-
-
-	lvi.mask = LVIF_TEXT;
-
-	lvi.pszText = _T("987654321");
-	lvi.iItem = 1;
-	lvi.iSubItem = 0;
-	ListView_InsertItem(this->controlHandler, &lvi);	
-	ListView_SetItemText(this->controlHandler, 1, 1, _T("Random name by docker"));
-	ListView_SetItemText(this->controlHandler, 1, 2, _T("ubuntu/lastest"));
-	ListView_SetItemText(this->controlHandler, 1, 3, _T("Running"));
-	ListView_SetItemText(this->controlHandler, 1, 4, _T("Epoch datetame"));
-
+int ListView::GetSelectedIndex()
+{
+	int i = SendMessage(this->controlHandler, LVM_GETNEXTITEM, (WPARAM)-1, (LPARAM)LVNI_SELECTED);
+	return i;
 }
 
 std::string ListView::GetContainerId()
@@ -65,4 +51,53 @@ std::string ListView::GetContainerId()
 	ListView_GetItemText(this->controlHandler, i, 0, buffer, 1024);
 	std::wstring str(buffer);
 	return std::string(str.begin(), str.end());
+}
+
+void ListView::Refresh()
+{
+	ListView_DeleteAllItems(this->controlHandler);
+	this->AddItemsToListView();
+}
+
+void ListView::CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date)
+{
+	LVITEM lvi;
+	lvi.mask = LVIF_TEXT;
+	int currentItem = this->items.size();
+	lvi.pszText = const_cast<LPWSTR>(containerId.c_str());
+	lvi.iItem = 0;
+	lvi.iSubItem = 0;
+
+	ListView_InsertItem(this->controlHandler, &lvi);
+	ListView_SetItemText(this->controlHandler, 0, 1, const_cast<LPWSTR>(containerName.c_str()));
+	ListView_SetItemText(this->controlHandler, 0, 2, const_cast<LPWSTR>(containerImage.c_str()));
+	ListView_SetItemText(this->controlHandler, 0, 3, const_cast<LPWSTR>(containerStatus.c_str()));
+	ListView_SetItemText(this->controlHandler, 0, 4, const_cast<LPWSTR>(date.c_str()));
+}
+
+void ListView::AddItemsToListView()
+{
+	std::vector<ListViewItem*>::iterator it;
+	for (it = this->items.begin(); it != this->items.end(); ++it)
+	{
+		std::wstring containerId = this->ConvertToWstring((*it)->GetContainerId());
+		std::wstring containerName = this->ConvertToWstring((*it)->GetName());
+		std::wstring containerImage = this->ConvertToWstring((*it)->GetImage());
+		std::wstring conteinerStatus = this->ConvertToWstring((*it)->GetStatus());
+		std::wstring creationDate = this->ConvertToWstring((*it)->GetCreated());
+		CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate);
+	}
+}
+
+void ListView::DeleteItem(int index)
+{
+	std::vector<ListViewItem*>::iterator it;
+	this->items.erase(this->items.begin() + index);
+	ListView_DeleteItem(this->controlHandler, index);
+}
+
+void ListView::UpdateItem(int index, std::string status)
+{
+	this->items[index]->SetStatus(status);
+	this->Refresh();
 }

@@ -162,13 +162,11 @@ void Window::CreateControls()
 	ListViewColumn* image = new ListViewColumn(2, "Image", 100);
 	ListViewColumn* status = new ListViewColumn(3, "Status", 100);
 	ListViewColumn* created = new ListViewColumn(4, "Created", 100);
-	ListViewItem* item = new ListViewItem("1234", "ubuntu", "ubuntu/lastes", "running", "wczoraj");
 	listView->AddColumn(containerId);
 	listView->AddColumn(name);
 	listView->AddColumn(image);
 	listView->AddColumn(status);
 	listView->AddColumn(created);
-	listView->AddItem(item);
 	this->AddControl(listView);
 	this->AddControl(loginButton);
 	this->AddControl(dockerUrl);

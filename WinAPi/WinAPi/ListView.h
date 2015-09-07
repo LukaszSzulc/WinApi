@@ -18,9 +18,24 @@ namespace View
 		void AddItem(ListViewItem *item);
 
 		void Create() override;
+
+		int GetSelectedIndex();
+
 		std::string GetContainerId();
+
+		void Refresh();
+
+		void DeleteItem(int index);
+
+		void UpdateItem(int index, std::string status);
+
 	private:
 		std::vector<ListViewColumn*> columns;
+		
 		std::vector<ListViewItem*> items;
+
+		void AddItemsToListView();
+
+		void CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date);
 	};
 }
