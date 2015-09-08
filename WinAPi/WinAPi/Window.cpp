@@ -95,7 +95,7 @@ void Window::CreateApplicationWindow()
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = className;
-	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE("Container.ico"));
 
 	if (!RegisterClassEx(&wcex))
 	{
@@ -196,11 +196,17 @@ void Window::CreateControls()
 	this->AddControl(commandsLabel);
 }
 
+void Window::LoadIcons()
+{
+	
+}
+
 void Window::Initialize()
 {
 	CreateApplicationWindow();
 	CreateControls();
 	InitializeControls();
+	LoadIcons();
 	HandleMessages();
 }
 

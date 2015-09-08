@@ -15,9 +15,22 @@ void ListView::AddItem(ListViewItem *item)
 	std::wstring conteinerStatus = this->ConvertToWstring(item->GetStatus());
 	std::wstring creationDate = this->ConvertToWstring(item->GetCreated());
 	CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate);
+	this->items.push_back(item);
+}
+
+void ListView::AddItems(std::vector<ListViewItem*> items)
+{
 	std::vector<ListViewItem*>::iterator it;
-	it = this->items.begin();
-	this->items.insert(it,item);
+	for (it = items.begin(); it != items.end(); ++it)
+	{
+		std::wstring containerId = this->ConvertToWstring((*it)->GetContainerId());
+		std::wstring containerName = this->ConvertToWstring((*it)->GetName());
+		std::wstring containerImage = this->ConvertToWstring((*it)->GetImage());
+		std::wstring conteinerStatus = this->ConvertToWstring((*it)->GetStatus());
+		std::wstring creationDate = this->ConvertToWstring((*it)->GetCreated());
+		CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate);
+		this->items.push_back((*it));
+	}
 }
 
 void ListView::Create()
@@ -61,33 +74,35 @@ void ListView::Refresh()
 	this->AddItemsToListView();
 }
 
-void ListView::CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date)
+void ListView::CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date, int index)
 {
+	int position = index == -1 ? this->items.size() : index;
 	LVITEM lvi;
 	lvi.mask = LVIF_TEXT;
 	int currentItem = this->items.size();
 	lvi.pszText = const_cast<LPWSTR>(containerId.c_str());
-	lvi.iItem = 0;
+	lvi.iItem = position;
 	lvi.iSubItem = 0;
 
 	ListView_InsertItem(this->controlHandler, &lvi);
-	ListView_SetItemText(this->controlHandler, 0, 1, const_cast<LPWSTR>(containerName.c_str()));
-	ListView_SetItemText(this->controlHandler, 0, 2, const_cast<LPWSTR>(containerImage.c_str()));
-	ListView_SetItemText(this->controlHandler, 0, 3, const_cast<LPWSTR>(containerStatus.c_str()));
-	ListView_SetItemText(this->controlHandler, 0, 4, const_cast<LPWSTR>(date.c_str()));
+	ListView_SetItemText(this->controlHandler, position, 1, const_cast<LPWSTR>(containerName.c_str()));
+	ListView_SetItemText(this->controlHandler, position, 2, const_cast<LPWSTR>(containerImage.c_str()));
+	ListView_SetItemText(this->controlHandler, position, 3, const_cast<LPWSTR>(containerStatus.c_str()));
+	ListView_SetItemText(this->controlHandler, position, 4, const_cast<LPWSTR>(date.c_str()));
 }
 
 void ListView::AddItemsToListView()
 {
 	std::vector<ListViewItem*>::iterator it;
-	for (it = this->items.begin(); it != this->items.end(); ++it)
+	int i = 0;
+	for (it = this->items.begin(); it != this->items.end(); ++it, i++)
 	{
 		std::wstring containerId = this->ConvertToWstring((*it)->GetContainerId());
 		std::wstring containerName = this->ConvertToWstring((*it)->GetName());
 		std::wstring containerImage = this->ConvertToWstring((*it)->GetImage());
 		std::wstring conteinerStatus = this->ConvertToWstring((*it)->GetStatus());
 		std::wstring creationDate = this->ConvertToWstring((*it)->GetCreated());
-		CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate);
+		CreateItem(containerId, containerName, containerImage, conteinerStatus, creationDate, i);
 	}
 }
 
@@ -114,4 +129,10 @@ void ListView::UpdateItem(int index, std::string status)
 int ListView::ItemsCount()
 {
 	return this->items.size();
+}
+
+void ListView::Clear()
+{
+	this->items.clear();
+	ListView_DeleteAllItems(this->controlHandler);
 }

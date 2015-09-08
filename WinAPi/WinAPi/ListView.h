@@ -17,6 +17,8 @@ namespace View
 
 		void AddItem(ListViewItem *item);
 
+		void AddItems(std::vector<ListViewItem*> items);
+
 		void Create() override;
 
 		int GetSelectedIndex();
@@ -31,6 +33,8 @@ namespace View
 
 		int ItemsCount();
 
+		void Clear();
+
 	private:
 		std::vector<ListViewColumn*> columns;
 		
@@ -38,6 +42,6 @@ namespace View
 
 		void AddItemsToListView();
 
-		void CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date);
+		void CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date, int index = -1);
 	};
 }

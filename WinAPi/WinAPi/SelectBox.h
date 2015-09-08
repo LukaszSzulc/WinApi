@@ -14,9 +14,11 @@ public:
 	
 	void AddItem(std::string item);
 
-	void Refresh();
+	void AddItems(std::vector<std::string> items);
 
 	std::string GetSelectedItem();
+
+	void Clear();
 private:
 	std::vector<std::string> items;
 };

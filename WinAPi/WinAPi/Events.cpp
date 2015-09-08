@@ -4,8 +4,18 @@ using namespace View;
 void Events::HandleListContainersEvent()
 {
 	TextBox *url = Window::GetControl<TextBox>("DockerUrl");
-	
+	ListView *listView = Window::GetControl<ListView>("ListView");
+	SelectBox *selectBox = Window::GetControl<SelectBox>("SelectBox");
 	std::string dockerUrl = url->GetText();
+	if(dockerUrl == "")
+	{
+		MessageBox(NULL, TEXT("DockerUrl is required"), TEXT("Error"), MB_ICONSTOP | MB_OK);
+	}
+	else
+	{
+		selectBox->Clear();
+		listView->Clear();
+	}
 }
 
 void Events::HandleStopContainerEvent()
@@ -15,7 +25,6 @@ void Events::HandleStopContainerEvent()
 
 	if (listView->ItemsCount() != 0 && selectedIndex != -1)
 	{
-		int selectedIndex = listView->GetSelectedIndex();
 		std::string containerId = listView->GetContainerId();
 		listView->UpdateItem(selectedIndex, "Stoped");
 	}
@@ -62,11 +71,24 @@ void Events::HandleDeleteContainerEvent()
 
 void Events::HandleCreateNewContainerEvent()
 {
-	srand(time(NULL));
-	int id = rand() % 100000 + 50000;
 	ListView *listView = Window::GetControl<ListView>("ListView");
+	TextBox *url = Window::GetControl<TextBox>("DockerUrl");
 	SelectBox *selectBox = Window::GetControl<SelectBox>("SelectBox");
-	ListViewItem *item = new ListViewItem(std::to_string(id), "Bruce Wayne", "ubuntu", "Running", "123456789");
-	listView->AddItem(item);
+	TextBox *commands = Window::GetControl<TextBox>("Commands");
+	std::string image = selectBox->GetSelectedItem();
+	std::string command = commands->GetText();
+	std::string dockerUrl = url->GetText();
+	if(image == "" || command == "" || dockerUrl == "")
+	{
+		MessageBox(NULL, TEXT("WINDOWS 10 knows evrything about you,but we don't plese fill required fields image, commands and docker url"), TEXT("Error"), MB_ICONSTOP | MB_OK);
+	}
+	else
+	{
+		srand(time(NULL));
+		int id = rand() % 100000 + 50000;
+		ListViewItem *item = new ListViewItem(std::to_string(id), "Bruce Wayne", "ubuntu", "Running", "123456789");
+		listView->AddItem(item);
+	}
+	
 }
 
