@@ -8,24 +8,6 @@ void ListView::AddColumn(ListViewColumn *column)
 	this->columns.push_back(column);
 }
 
-void ListView::CreateNewItem(ListViewItem*& item, std::wstring containerId, std::wstring containerName, std::wstring image, std::wstring date, std::wstring status)
-{
-	int currentsItemCount = this->items.size();
-
-	LVITEM lvi;
-	lvi.mask = LVIF_TEXT;
-
-	lvi.pszText = const_cast<LPWSTR>(containerId.c_str());
-	lvi.iItem = 0;
-	lvi.iSubItem = 0;
-
-	ListView_InsertItem(this->controlHandler, &lvi);
-	ListView_SetItemText(this->controlHandler, 0, 1, const_cast<LPWSTR>(containerName.c_str()));
-	ListView_SetItemText(this->controlHandler, 0, 2, const_cast<LPWSTR>(image.c_str()));
-	ListView_SetItemText(this->controlHandler, 0, 3, const_cast<LPWSTR>(status.c_str()));
-	ListView_SetItemText(this->controlHandler, 0, 4, const_cast<LPWSTR>(date.c_str()));
-}
-
 void ListView::AddItem(ListViewItem *item)
 {
 	std::wstring containerId = this->ConvertToWstring(item -> GetContainerId());
