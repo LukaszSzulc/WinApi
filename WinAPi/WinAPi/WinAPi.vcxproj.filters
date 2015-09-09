@@ -25,12 +25,6 @@
     <Filter Include="Source Files\Docker">
       <UniqueIdentifier>{a2b05e50-e471-40bd-bd67-4cb751bd45b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Docker\Model">
-      <UniqueIdentifier>{4d09c478-9803-43c2-b052-0e1b6d08905c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Docker\Service">
-      <UniqueIdentifier>{f2503cdb-b006-41b0-9ed2-a1c53e9cc996}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -60,20 +54,20 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files\View</Filter>
     </ClCompile>
-    <ClCompile Include="DockerImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DockerContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DockerClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DockerContainerSketch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SelectBox.cpp">
       <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="DockerClient.cpp">
+      <Filter>Source Files\Docker</Filter>
+    </ClCompile>
+    <ClCompile Include="DockerContainer.cpp">
+      <Filter>Source Files\Docker</Filter>
+    </ClCompile>
+    <ClCompile Include="DockerContainerSketch.cpp">
+      <Filter>Source Files\Docker</Filter>
+    </ClCompile>
+    <ClCompile Include="DockerImage.cpp">
+      <Filter>Source Files\Docker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,5 +101,35 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files\View</Filter>
     </ClInclude>
+    <ClInclude Include="DockerClient.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="DockerContainer.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="DockerContainerSketch.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="DockerGetContainerResponse.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="DockerImage.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="DockerLabel.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="Port.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectBox.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceDocker.h">
+      <Filter>Header Files\Docker</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

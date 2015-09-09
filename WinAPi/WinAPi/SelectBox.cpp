@@ -7,6 +7,7 @@ void SelectBox::Create()
 		CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
 		this->positionLeft, this->positionTop, this->width, this->height, View::Window::GetWindowHandler(), NULL, View::Window::GetMainInstance(),
 		NULL);
+	this->SetSystemStyle();
 }
 
 void SelectBox::AddItem(std::string item)
@@ -17,13 +18,13 @@ void SelectBox::AddItem(std::string item)
 	this->items.push_back(item);
 }
 
-void SelectBox::AddItems(std::vector<std::string> items)
+void SelectBox::AddItems(std::vector<Docker::Model::Image> &items)
 {
-	std::vector<std::string>::iterator it;
+	std::vector<Docker::Model::Image>::iterator it;
 	for (it = items.begin(); it != items.end(); ++it)
 	{
-		std::wstring itemName = ConvertToWstring(*it);
-		this->items.push_back(*it);
+		std::wstring itemName = this->ConvertToWstring((*it).Name);
+		this->items.push_back((*it).Name);
 		SendMessage(this->controlHandler, CB_ADDSTRING, 0, reinterpret_cast<LPARAM>(itemName.c_str()));
 	}
 	SendMessage(this->controlHandler, CB_SETCURSEL, 0, 0);

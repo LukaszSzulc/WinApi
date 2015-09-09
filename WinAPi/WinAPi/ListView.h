@@ -4,6 +4,9 @@
 #include <commctrl.h>
 #include "ListViewColumn.h"
 #include "ListViewItem.h"
+#include "DockerContainer.h"
+#include "Window.h"
+
 namespace View
 {
 	class ListView : public Control
@@ -14,10 +17,12 @@ namespace View
 		}
 
 		void AddColumn(ListViewColumn *column);
+		
 		void CreateNewItem(ListViewItem*& item, std::wstring containerId, std::wstring containerName, std::wstring image, std::wstring date, std::wstring status);
-		void AddItem(ListViewItem *item);
+		
+		void AddItem(const Docker::Model::Container &item);
 
-		void AddItems(std::vector<ListViewItem*> items);
+		void AddItems(std::vector<Docker::Model::Container> &items);
 
 		void Create() override;
 
@@ -38,10 +43,10 @@ namespace View
 	private:
 		std::vector<ListViewColumn*> columns;
 		
-		std::vector<ListViewItem*> items;
+		std::vector<Docker::Model::Container> items;
 
 		void AddItemsToListView();
 
-		void CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date, int index = -1);
+		void CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date, std::wstring command, int index = -1);
 	};
 }

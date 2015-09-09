@@ -38,7 +38,7 @@ namespace View
 
 		~Control()
 		{
-			delete this->controlHandler;
+			SendMessage(this->controlHandler, WM_CLOSE, 0, 0);
 		}
 
 		std::string GetControlId();

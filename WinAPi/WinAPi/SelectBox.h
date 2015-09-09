@@ -2,6 +2,7 @@
 #include "Control.h"
 #include <vector>
 #include "Window.h"
+#include "DockerImage.h"
 
 class SelectBox : public View::Control
 {
@@ -14,7 +15,7 @@ public:
 	
 	void AddItem(std::string item);
 
-	void AddItems(std::vector<std::string> items);
+	void AddItems(std::vector<Docker::Model::Image> &items);
 
 	std::string GetSelectedItem();
 

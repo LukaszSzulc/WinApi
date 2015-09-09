@@ -23,13 +23,9 @@ void Window::HandleButtonClick(WORD word)
 	{
 		Events::HandleListContainersEvent();
 	}
-	if (controlId == "StartContainer")
+	if (controlId == "RestartContainer")
 	{
-		Events::HandleStartContainerEvent();
-	}
-	if (controlId == "StopContainer")
-	{
-		Events::HandleStopContainerEvent();
+		Events::HandleRestartContainerEvent();
 	}
 	if (controlId == "CreateContainer")
 	{
@@ -38,6 +34,10 @@ void Window::HandleButtonClick(WORD word)
 	if (controlId == "DeleteContainer")
 	{
 		Events::HandleDeleteContainerEvent();
+	}
+	if (controlId == "KillContainer")
+	{
+		Events::HandleKillContainerEvent();
 	}
 }
 
@@ -66,7 +66,7 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 		}
 		else
 		{
-		HandleButtonClick(LOWORD(wParam));
+			HandleButtonClick(LOWORD(wParam));
 		}
 		break;
 		
@@ -126,6 +126,17 @@ HWND Window::GetWindowHandler()
 	return windowHandler;
 }
 
+Window::~Window()
+{
+	std::map<std::string, Control*>::iterator it;
+	for (it = this->controls.begin(); it != this->controls.end(); ++it)
+	{
+		delete (*it).second;
+		(*it).second = NULL;
+	}
+	this->controls.clear();
+}
+
 HINSTANCE Window::GetMainInstance()
 {
 	return mainInstance;
@@ -159,41 +170,47 @@ void Window::InitializeControls()
 void Window::CreateControls()
 {
 	Label *dockerUrlLabel = new Label("A", 0, 0, 150, 20, "Docker Url");
-	Label *selectBoxLablel = new Label("B", 100, 0, 150, 20,"Images");
-	Label *commandsLabel = new Label("C", 150, 0, 150, 20, "Command");
+	Label *selectBoxLablel = new Label("B", 140, 0, 150, 20,"Images");
+	Label *commandsLabel = new Label("C", 180, 0, 150, 20, "Command");
+	Label *portLabel = new Label("D", 90, 0, 150, 20, "Port");
 
 	Button* listContainers = new Button("ListContainers", 40, 0, 150, 50, "List containers and images");
-	Button* startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
-	Button* stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
+	Button* restartButton = new Button("RestartContainer", 350, 150, 100, 40, "Restart");
+	Button* deleteContainerButton = new Button("DeleteContainer", 350, 250, 100, 40, "Delete");
 	Button* createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
-	Button* deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
-
+	Button* killContainer = new Button("KillContainer", 350, 450, 100, 40, "Kill");
 	TextBox* dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
-	SelectBox *selectBox = new SelectBox("SelectBox", 0, 120, 120, 200);
-	TextBox *command = new TextBox("Commands", 170, 0, 150, 20);
-	ListView* listView = new ListView("ListView", 0, 150, 550, 350);
-	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 150);
-	ListViewColumn* name = new ListViewColumn(1, "Name", 100);
-	ListViewColumn* image = new ListViewColumn(2, "Image", 100);
-	ListViewColumn* status = new ListViewColumn(3, "Status", 100);
-	ListViewColumn* created = new ListViewColumn(4, "Created", 100);
+	TextBox* port = new TextBox("DockerPort", 110, 0, 150, 20);
+	SelectBox *selectBox = new SelectBox("SelectBox", 0, 160, 150, 200);
+	TextBox *command = new TextBox("Commands", 200, 0, 150, 20);
+	ListView* listView = new ListView("ListView", 0, 150, 1050, 350);
+	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 200);
+	ListViewColumn* name = new ListViewColumn(1, "Name", 150);
+	ListViewColumn* image = new ListViewColumn(2, "Image", 150);
+	ListViewColumn* status = new ListViewColumn(3, "Status", 200);
+	ListViewColumn* created = new ListViewColumn(4, "Created", 150);
+	ListViewColumn* containerCommand = new ListViewColumn(5, "Command", 200);
+	
 	listView->AddColumn(containerId);
 	listView->AddColumn(name);
 	listView->AddColumn(image);
 	listView->AddColumn(status);
 	listView->AddColumn(created);
+	listView->AddColumn(containerCommand);
 	this->AddControl(listView);
 	this->AddControl(listContainers);
 	this->AddControl(dockerUrl);
-	this->AddControl(startContainerButton);
+	this->AddControl(restartButton);
 	this->AddControl(createContainerButton);
 	this->AddControl(deleteContainerButton);
-	this->AddControl(stopContainerButton);
 	this->AddControl(dockerUrlLabel);
 	this->AddControl(selectBox);
 	this->AddControl(command);	
 	this->AddControl(selectBoxLablel);
 	this->AddControl(commandsLabel);
+	this->AddControl(portLabel);
+	this->AddControl(port);
+	this->AddControl(killContainer);
 }
 
 void Window::LoadIcons()

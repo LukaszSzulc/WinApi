@@ -24,10 +24,7 @@ namespace View
 			this->nCmdShow = nCmdShow;
 		}
 
-		~Window()
-		{
-
-		}
+		~Window();
 		static HINSTANCE GetMainInstance();
 
 		static HWND GetWindowHandler();
@@ -77,9 +74,6 @@ namespace View
 		void AddMapStringToHex(int hexId, std::string stringId);
 
 		void LoadIcons();
-
-
-
 	};
 
 	template <typename ControlType>

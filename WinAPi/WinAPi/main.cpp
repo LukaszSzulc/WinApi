@@ -1,4 +1,5 @@
-#include <windows.h>
+#define WIN32_LEAN_AND_MEAN
+#include "windows.h"
 #include "Window.h"
 
 // Global variables
@@ -9,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	LPSTR lpCmdLine,
 	int nCmdShow)
 {
-	Window window(700, 450, hInstance, nCmdShow);
+	Window window(1150, 450, hInstance, nCmdShow);
 	window.Initialize();
 
 	return 0;

@@ -14,12 +14,13 @@ namespace View
 	public:
 		static void HandleListContainersEvent();
 
-		static void HandleStartContainerEvent();
+		static void HandleRestartContainerEvent();
 
-		static void HandleStopContainerEvent();
+		static void HandleDeleteContainerEvent();
 
 		static void HandleCreateNewContainerEvent();
 
-		static void HandleDeleteContainerEvent();
+		static void HandleKillContainerEvent();
+
 	};
 }
