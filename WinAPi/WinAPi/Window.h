@@ -26,11 +26,13 @@ namespace View
 
 		~Window()
 		{
+
 		}
 		static HINSTANCE GetMainInstance();
 
 		static HWND GetWindowHandler();
 
+		static int nCmdShow;
 
 		static int GetHexControlId(std::string controlId);
 
@@ -41,23 +43,40 @@ namespace View
 
 	private:
 		static HINSTANCE mainInstance;
+
 		static int controlCount;
+
 		static void HandleButtonClick(WORD l_param);
-		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+		static void HandleComboBoxChangeEvent(LPARAM lParam);
+
 		static HWND windowHandler;
+
 		static std::map<std::string, Control*> controls;
+
 		static std::map<int, std::string> mapHexToString;
+
 		int width;
+
 		int height;
-		int nCmdShow;
+
+		static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 		static std::string GetHexIdByStringName(int hexId);
+
 		void CreateApplicationWindow();
+
 		void InitializeControls();
+
 		void AddControl(Control* control);
+
 		void HandleMessages();
+
 		void CreateControls();
+
 		void AddMapStringToHex(int hexId, std::string stringId);
+
+		void LoadIcons();
 
 
 

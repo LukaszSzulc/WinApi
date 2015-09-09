@@ -153,6 +153,7 @@
     <ClCompile Include="ListView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PasswordBox.cpp" />
+    <ClCompile Include="SelectBox.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="PasswordBox.h" />
     <ClInclude Include="Port.h" />
     <ClInclude Include="ServiceDocker.h" />
+    <ClInclude Include="SelectBox.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

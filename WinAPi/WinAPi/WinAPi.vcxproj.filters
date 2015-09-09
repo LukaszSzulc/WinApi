@@ -72,6 +72,9 @@
     <ClCompile Include="DockerContainerSketch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SelectBox.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -104,32 +107,5 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files\View</Filter>
     </ClInclude>
-    <ClInclude Include="DockerGetContainerResponse.h">
-      <Filter>Header Files\Docker\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Port.h">
-      <Filter>Header Files\Docker\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ServiceDocker.h">
-      <Filter>Header Files\Docker\Service</Filter>
-    </ClInclude>
-    <ClInclude Include="DockerLabel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DockerImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DockerContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DockerClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DockerContainerSketch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

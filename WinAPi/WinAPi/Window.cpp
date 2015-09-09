@@ -1,10 +1,13 @@
 #include "Window.h"
+#include "SelectBox.h"
 
 using namespace View;
 
 HINSTANCE Window::mainInstance = NULL;
 
 HWND Window::windowHandler = NULL;
+
+int Window::nCmdShow = 0;
 
 std::map<std::string, Control*> Window::controls;
 
@@ -16,32 +19,37 @@ void Window::HandleButtonClick(WORD word)
 {
 	std::string controlId = GetHexIdByStringName(word);
 
-	if (controlId == "LoginButton")
+	if (controlId == "ListContainers")
 	{
-		Events::HandleLoginEvent();
+		Events::HandleListContainersEvent();
 	}
 	if (controlId == "StartContainer")
 	{
 		Events::HandleStartContainerEvent();
-		MessageBox(NULL, _T("Start Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "StopContainer")
 	{
 		Events::HandleStopContainerEvent();
-		MessageBox(NULL, _T("Stop Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "CreateContainer")
 	{
 		Events::HandleCreateNewContainerEvent();
-		MessageBox(NULL, _T("Create Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 	if (controlId == "DeleteContainer")
 	{
 		Events::HandleDeleteContainerEvent();
-		MessageBox(NULL, _T("Delete Button"), _T("Button Clicked"), MB_ICONINFORMATION);
 	}
 }
 
+void Window::HandleComboBoxChangeEvent(LPARAM lParam)
+{
+	int ItemIndex = SendMessage((HWND)lParam, (UINT)CB_GETCURSEL,
+		(WPARAM)0, (LPARAM)0);
+
+	TCHAR  ListItem[256];
+	(TCHAR)SendMessage((HWND)lParam, (UINT)CB_GETLBTEXT,
+		(WPARAM)ItemIndex, (LPARAM)ListItem);
+}
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -52,8 +60,16 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 	switch (message)
 	{
 	case WM_COMMAND:
+		if(HIWORD(wParam) == CBN_SELCHANGE)
+		{
+			HandleComboBoxChangeEvent(lParam);
+		}
+		else
+		{
 		HandleButtonClick(LOWORD(wParam));
+		}
 		break;
+		
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -79,7 +95,7 @@ void Window::CreateApplicationWindow()
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = className;
-	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_APPLICATION));
+	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE("Container.ico"));
 
 	if (!RegisterClassEx(&wcex))
 	{
@@ -142,47 +158,47 @@ void Window::InitializeControls()
 
 void Window::CreateControls()
 {
-	Label* dockerUrlLabel = new Label("", 0, 0, 150, 20, "Docker Url");
-	Label* loginLabel = new Label("", 40, 0, 150, 20, "Login");
-	Label* passwordLabel = new Label("", 80, 0, 150, 20, "Password");
+	Label *dockerUrlLabel = new Label("A", 0, 0, 150, 20, "Docker Url");
+	Label *selectBoxLablel = new Label("B", 100, 0, 150, 20,"Images");
+	Label *commandsLabel = new Label("C", 150, 0, 150, 20, "Command");
 
-	Button* loginButton = new Button("LoginButton", 140, 0, 150, 50, "Login");
+	Button* listContainers = new Button("ListContainers", 40, 0, 150, 50, "List containers and images");
 	Button* startContainerButton = new Button("StartContainer", 350, 150, 100, 40, "Start");
 	Button* stopContainerButton = new Button("StopContainer", 350, 250, 100, 40, "Stop");
 	Button* createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
 	Button* deleteContainerButton = new Button("DeleteContainer", 350, 450, 100, 40, "Delete");
 
 	TextBox* dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
-	TextBox* login = new TextBox("Login", 60, 0, 150, 20);
-	PasswordBox* passwordBox = new PasswordBox("Password", 100, 0, 150, 20);
-
+	SelectBox *selectBox = new SelectBox("SelectBox", 0, 120, 120, 200);
+	TextBox *command = new TextBox("Commands", 170, 0, 150, 20);
 	ListView* listView = new ListView("ListView", 0, 150, 550, 350);
 	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 150);
 	ListViewColumn* name = new ListViewColumn(1, "Name", 100);
 	ListViewColumn* image = new ListViewColumn(2, "Image", 100);
 	ListViewColumn* status = new ListViewColumn(3, "Status", 100);
 	ListViewColumn* created = new ListViewColumn(4, "Created", 100);
-	ListViewItem* item = new ListViewItem("1234", "ubuntu", "ubuntu/lastes", "running", "wczoraj");
 	listView->AddColumn(containerId);
 	listView->AddColumn(name);
 	listView->AddColumn(image);
 	listView->AddColumn(status);
 	listView->AddColumn(created);
-	listView->AddItem(item);
 	this->AddControl(listView);
-	this->AddControl(loginButton);
+	this->AddControl(listContainers);
 	this->AddControl(dockerUrl);
 	this->AddControl(startContainerButton);
 	this->AddControl(createContainerButton);
 	this->AddControl(deleteContainerButton);
 	this->AddControl(stopContainerButton);
-	this->AddControl(passwordBox);
 	this->AddControl(dockerUrlLabel);
-	this->AddControl(loginLabel);
-	this->AddControl(passwordLabel);
-	this->AddControl(login);
-	this->AddControl(passwordLabel);
-	this->AddControl(loginLabel);
+	this->AddControl(selectBox);
+	this->AddControl(command);	
+	this->AddControl(selectBoxLablel);
+	this->AddControl(commandsLabel);
+}
+
+void Window::LoadIcons()
+{
+	
 }
 
 void Window::Initialize()
@@ -190,6 +206,7 @@ void Window::Initialize()
 	CreateApplicationWindow();
 	CreateControls();
 	InitializeControls();
+	LoadIcons();
 	HandleMessages();
 }
 

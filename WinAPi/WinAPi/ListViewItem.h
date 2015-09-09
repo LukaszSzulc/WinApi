@@ -37,6 +37,12 @@ namespace View
 		{
 			return this->created;
 		}
+
+		void SetStatus(std::string status)
+		{
+			this->status = status;
+		}
+
 	private:
 		std::string containerId;
 		std::string name;

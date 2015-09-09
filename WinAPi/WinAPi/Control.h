@@ -6,9 +6,8 @@ namespace View
 {
 	class Control
 	{
+
 	protected:
-
-
 		std::string controlId;
 
 		int positionLeft;
@@ -24,6 +23,8 @@ namespace View
 		void SetSystemStyle();
 
 		std::wstring ConvertToWstring(std::string itemToConvert);
+
+		void SetFont();
 
 	public:
 		Control(std::string controlId, int positionTop, int positionLeft, int width, int height)

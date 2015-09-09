@@ -14,17 +14,34 @@ namespace View
 		}
 
 		void AddColumn(ListViewColumn *column);
+		void CreateNewItem(ListViewItem*& item, std::wstring containerId, std::wstring containerName, std::wstring image, std::wstring date, std::wstring status);
 		void AddItem(ListViewItem *item);
 
-		void Refresh();
+		void AddItems(std::vector<ListViewItem*> items);
+
 		void Create() override;
+
+		int GetSelectedIndex();
+
 		std::string GetContainerId();
-		
+
+		void Refresh();
+
+		void DeleteItem(int index);
+
+		void UpdateItem(int index, std::string status);
+
+		int ItemsCount();
+
+		void Clear();
+
 	private:
 		std::vector<ListViewColumn*> columns;
+		
 		std::vector<ListViewItem*> items;
-		void Clear();
-		void CreateNewItem(ListViewItem*& item, std::wstring containerId, std::wstring containerName, std::wstring image, std::wstring date, std::wstring status);
 
+		void AddItemsToListView();
+
+		void CreateItem(std::wstring containerId, std::wstring containerName, std::wstring containerImage, std::wstring containerStatus, std::wstring date, int index = -1);
 	};
 }
