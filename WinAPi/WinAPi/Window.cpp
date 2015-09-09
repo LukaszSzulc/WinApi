@@ -170,19 +170,19 @@ void Window::InitializeControls()
 void Window::CreateControls()
 {
 	Label *dockerUrlLabel = new Label("A", 0, 0, 150, 20, "Docker Url");
-	Label *selectBoxLablel = new Label("B", 140, 0, 150, 20,"Images");
-	Label *commandsLabel = new Label("C", 180, 0, 150, 20, "Command");
-	Label *portLabel = new Label("D", 90, 0, 150, 20, "Port");
+	Label *selectBoxLablel = new Label("B", 170, 0, 150, 20,"Images");
+	Label *commandsLabel = new Label("C", 220, 0, 150, 20, "Command");
+	Label *portLabel = new Label("D", 120, 0, 150, 20, "Port");
 
-	Button* listContainers = new Button("ListContainers", 40, 0, 150, 50, "List containers and images");
+	Button* listContainers = new Button("ListContainers", 50, 0, 150, 50, "List containers and images");
 	Button* restartButton = new Button("RestartContainer", 350, 150, 100, 40, "Restart");
 	Button* deleteContainerButton = new Button("DeleteContainer", 350, 250, 100, 40, "Delete");
 	Button* createContainerButton = new Button("CreateContainer", 350, 350, 100, 40, "Create");
 	Button* killContainer = new Button("KillContainer", 350, 450, 100, 40, "Kill");
 	TextBox* dockerUrl = new TextBox("DockerUrl", 20, 0, 150, 20);
-	TextBox* port = new TextBox("DockerPort", 110, 0, 150, 20);
-	SelectBox *selectBox = new SelectBox("SelectBox", 0, 160, 150, 200);
-	TextBox *command = new TextBox("Commands", 200, 0, 150, 20);
+	TextBox* port = new TextBox("DockerPort", 140, 0, 150, 20);
+	SelectBox *selectBox = new SelectBox("SelectBox", 0, 190, 150, 200);
+	TextBox *command = new TextBox("Commands", 240, 0, 150, 20);
 	ListView* listView = new ListView("ListView", 0, 150, 1050, 350);
 	ListViewColumn* containerId = new ListViewColumn(0, "ContainerId", 200);
 	ListViewColumn* name = new ListViewColumn(1, "Name", 150);
